@@ -1,7 +1,7 @@
 import { hash, verify } from '@node-rs/argon2';
 import { encodeBase32LowerCase } from '@oslojs/encoding';
 import { fail, redirect } from '@sveltejs/kit';
-import { eq } from 'drizzle-orm';
+import { eq, or } from 'drizzle-orm';
 import * as auth from '$lib/server/auth';
 import { db } from '$lib/server/db';
 import * as table from '$lib/server/db/schema';
@@ -17,19 +17,27 @@ export const load: PageServerLoad = async (event) => {
 export const actions: Actions = {
 	login: async (event) => {
 		const formData = await event.request.formData();
-		const email = formData.get('email');
+		const emailOrUsername = formData.get('email');
 		const password = formData.get('password');
 
-		if (!validateEmail(email)) {
+		if (!validateEmailOrUsername(emailOrUsername)) {
 			return fail(400, {
-				message: 'Correo electrónico inválido'
+				message: 'Correo electrónico o nombre de usuario inválido'
 			});
 		}
 		if (!validatePassword(password)) {
 			return fail(400, { message: 'Contraseña inválida (mín 6, máx 255 caracteres)' });
 		}
 
-		const results = await db.select().from(table.user).where(eq(table.user.username, email));
+		const results = await db
+			.select()
+			.from(table.user)
+			.where(
+				or(
+					eq(table.user.email, String(emailOrUsername)),
+					eq(table.user.username, String(emailOrUsername))
+				)
+			);
 
 		const existingUser = results.at(0);
 		if (!existingUser) {
@@ -54,15 +62,13 @@ export const actions: Actions = {
 	}
 };
 
-function validateEmail(email: unknown): email is string {
-	return (
-		typeof email === 'string' &&
-		email.length >= 3 &&
-		email.length <= 255 &&
-		/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-	);
+function validateEmailOrUsername(input: unknown): input is string {
+	if (typeof input !== 'string' || input.length < 3 || input.length > 255) {
+		return false;
+	}
+	return true;
 }
 
 function validatePassword(password: unknown): password is string {
 	return typeof password === 'string' && password.length >= 6 && password.length <= 255;
-} 
+}

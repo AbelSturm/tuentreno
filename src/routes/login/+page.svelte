@@ -6,6 +6,7 @@
 <script lang="ts">
 import '../../app.css';
 import { enhance } from '$app/forms';
+import { goto } from '$app/navigation';
 import type { ActionData } from './$types';
 
 let { form }: { form: ActionData } = $props();
@@ -22,12 +23,13 @@ let isLoading = $state(false);
     </a>
     <h1 class="text-2xl font-bold text-center mb-2 text-gray-900">Iniciar sesión</h1>
     <p class="text-center text-gray-500 mb-8 text-base">Accede a tu panel de entrenamiento personalizado</p>
-    <form class="w-full animate-fade-in" method="POST" use:enhance={() => {
+    <form class="w-full animate-fade-in" method="post" action="?/login" use:enhance={() => {
       isLoading = true;
       return async ({ result, update }) => {
         if (result.type === 'redirect') {
           // Server handled the redirect, follow it immediately
-          console.log('Server redirect received, following redirect');
+          console.log('Server redirect received, navigating to:', result.location);
+          await goto(result.location, { replaceState: true });
           return;
         } else {
           // Handle errors or other responses
@@ -38,8 +40,8 @@ let isLoading = $state(false);
     }}>
       <div class="space-y-4">
         <div>
-          <label class="block text-gray-700 mb-1 font-medium" for="email">Correo electrónico</label>
-          <input id="email" name="email" type="email" autocomplete="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400 transition" required disabled={isLoading} />
+          <label class="block text-gray-700 mb-1 font-medium" for="email">Correo electrónico o nombre de usuario</label>
+          <input id="email" name="email" type="text" autocomplete="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400 transition" required disabled={isLoading} />
         </div>
         <div>
           <label class="block text-gray-700 mb-1 font-medium" for="password">Contraseña</label>

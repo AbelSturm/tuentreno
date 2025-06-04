@@ -6,9 +6,21 @@
 <script lang="ts">
 import '../../app.css';
 import { enhance } from '$app/forms';
+import { page } from '$app/stores';
+import { onMount } from 'svelte';
+import { get } from 'svelte/store';
 import type { ActionData } from './$types';
+
 let { form }: { form: ActionData } = $props();
 let isLoading = $state(false);
+let selectedRole = $state('');
+
+onMount(() => {
+  const roleParam = get(page).url.searchParams.get('rol');
+  if (roleParam === 'escalador' || roleParam === 'entrenador') {
+    selectedRole = roleParam;
+  }
+});
 </script>
 
 <div class="min-h-screen flex flex-col items-center justify-center bg-gray-50 px-4 py-8">
@@ -56,7 +68,7 @@ let isLoading = $state(false);
       </div>
       <div class="mb-4">
         <label class="block text-gray-700 mb-1 font-medium" for="role">Rol</label>
-        <select id="role" name="role" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400 transition" required disabled={isLoading}>
+        <select id="role" name="role" bind:value={selectedRole} class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400 transition" required disabled={isLoading}>
           <option value="">Selecciona un rol</option>
           <option value="escalador">Escalador</option>
           <option value="entrenador">Entrenador</option>

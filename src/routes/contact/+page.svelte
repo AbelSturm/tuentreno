@@ -4,7 +4,7 @@
 </svelte:head>
 
 <script lang="ts">
-import '../app.css';
+import '../../app.css';
 import Navbar from '$lib/Navbar.svelte';
 import { enhance } from '$app/forms';
 import type { ActionData } from './$types';

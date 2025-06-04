@@ -1,10 +1,39 @@
 import * as auth from '$lib/server/auth';
 import { fail, redirect } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from './$types';
+import { db } from '$lib/server/db';
+import { clientTrainer, user } from '$lib/server/db/schema';
+import { eq, desc } from 'drizzle-orm';
 
 export const load: PageServerLoad = async (event) => {
-	const user = requireLogin(event);
-	return { user };
+	const userData = requireLogin(event);
+
+	let clients: any[] = [];
+	if (userData.role === 'entrenador') {
+		clients = await db
+			.select({
+				id: clientTrainer.id,
+				clientId: clientTrainer.clientId,
+				status: clientTrainer.status,
+				startDate: clientTrainer.startDate,
+				endDate: clientTrainer.endDate,
+				monthlyFee: clientTrainer.monthlyFee,
+				notes: clientTrainer.notes,
+				firstName: user.firstName,
+				lastName: user.lastName,
+				email: user.email,
+				phone: user.phone,
+				experience: user.experience,
+				maxGrade: user.maxGrade,
+				profilePicture: user.profilePicture
+			})
+			.from(clientTrainer)
+			.innerJoin(user, eq(clientTrainer.clientId, user.id))
+			.where(eq(clientTrainer.trainerId, userData.id))
+			.orderBy(desc(clientTrainer.startDate));
+	}
+
+	return { user: userData, clients };
 };
 
 export const actions: Actions = {

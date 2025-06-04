@@ -29,6 +29,13 @@
       "when": 1749049745627,
       "tag": "0003_sudden_butterfly",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1749067248236,
+      "tag": "0004_true_supreme_intelligence",
+      "breakpoints": true
     }
   ]
 }

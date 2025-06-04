@@ -30,7 +30,7 @@ const userRole = (data.user.role === 'entrenador') ? 'entrenador' as const : 'es
           </div>
           <div class="ml-4">
             <p class="text-sm font-medium text-gray-600">Clientes Activos</p>
-            <p class="text-2xl font-semibold text-gray-900">12</p>
+            <p class="text-2xl font-semibold text-gray-900">{data.clients.filter(c => c.status === 'active').length}</p>
           </div>
         </div>
       </div>
@@ -73,50 +73,26 @@ const userRole = (data.user.role === 'entrenador') ? 'entrenador' as const : 'es
         </div>
         <div class="p-6">
           <div class="space-y-4">
-            <div class="flex items-center justify-between">
-              <div class="flex items-center">
-                <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
-                  <span class="text-sm font-medium text-gray-600">JD</span>
+            {#each data.clients.slice(0, 3) as client}
+              <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                  <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
+                    <span class="text-sm font-medium text-gray-600">
+                      {client.firstName.charAt(0)}{client.lastName.charAt(0)}
+                    </span>
+                  </div>
+                  <div class="ml-3">
+                    <p class="text-sm font-medium text-gray-900">{client.firstName} {client.lastName}</p>
+                    <p class="text-sm text-gray-500">
+                      Último entrenamiento: Próximamente
+                    </p>
+                  </div>
                 </div>
-                <div class="ml-3">
-                  <p class="text-sm font-medium text-gray-900">Juan Díaz</p>
-                  <p class="text-sm text-gray-500">Último entrenamiento: Ayer</p>
-                </div>
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {client.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}">
+                  {client.status === 'active' ? 'Activo' : 'Inactivo'}
+                </span>
               </div>
-              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                Activo
-              </span>
-            </div>
-            
-            <div class="flex items-center justify-between">
-              <div class="flex items-center">
-                <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
-                  <span class="text-sm font-medium text-gray-600">MG</span>
-                </div>
-                <div class="ml-3">
-                  <p class="text-sm font-medium text-gray-900">María García</p>
-                  <p class="text-sm text-gray-500">Último entrenamiento: Hace 2 días</p>
-                </div>
-              </div>
-              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                Activo
-              </span>
-            </div>
-
-            <div class="flex items-center justify-between">
-              <div class="flex items-center">
-                <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
-                  <span class="text-sm font-medium text-gray-600">AL</span>
-                </div>
-                <div class="ml-3">
-                  <p class="text-sm font-medium text-gray-900">Ana López</p>
-                  <p class="text-sm text-gray-500">Último entrenamiento: Hace 1 semana</p>
-                </div>
-              </div>
-              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
-                Inactivo
-              </span>
-            </div>
+            {/each}
           </div>
           
           <div class="mt-6">

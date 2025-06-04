@@ -182,6 +182,17 @@ export const trainerStats = pgTable('trainer_stats', {
 	retainedClients: integer('retained_clients').notNull().default(0)
 });
 
+// Invitación de cliente
+export const clientInvite = pgTable('client_invite', {
+	id: text('id').primaryKey(),
+	trainerId: text('trainer_id').notNull().references(() => user.id),
+	email: text('email').notNull(),
+	token: text('token').notNull().unique(),
+	createdAt: timestamp('created_at', { withTimezone: true, mode: 'date' }).notNull().defaultNow(),
+	acceptedAt: timestamp('accepted_at', { withTimezone: true, mode: 'date' }),
+	used: boolean('used').notNull().default(false)
+});
+
 // Tipos TypeScript para todas las tablas
 export type Session = typeof session.$inferSelect;
 export type User = typeof user.$inferSelect;
@@ -194,3 +205,4 @@ export type UserProgress = typeof userProgress.$inferSelect;
 export type TrainingPlan = typeof trainingPlan.$inferSelect;
 export type UserTrainingPlan = typeof userTrainingPlan.$inferSelect;
 export type TrainerStats = typeof trainerStats.$inferSelect;
+export type ClientInvite = typeof clientInvite.$inferSelect;

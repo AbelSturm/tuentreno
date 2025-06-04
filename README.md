@@ -1,6 +1,6 @@
 # TuEntreno - Your Personalized Fitness Journey
 
-TuEntreno is a web application designed to help you manage and track your fitness progress. Whether you're a seasoned athlete or just starting out, TuenTreno provides the tools you need to create personalized workout plans, monitor your achievements, and stay motivated on your path to a healthier lifestyle.
+TuEntreno is a web application designed to help you manage and track your fitness progress. Whether you're a seasoned athlete or just starting out, TuEntreno provides the tools you need to create personalized workout plans, monitor your achievements, and stay motivated on your path to a healthier lifestyle.
 
 This project is built with SvelteKit, providing a fast and modern user experience.
 

@@ -79,7 +79,7 @@ function irARegistro(rol: 'escalador' | 'entrenador') {
     <div class="max-w-2xl mx-auto text-center">
       <h2 class="text-2xl md:text-3xl font-bold text-purple-700 mb-4">¿Tienes preguntas o necesitas ayuda?</h2>
       <p class="text-gray-700 mb-6">Nos encantaría saber de ti. Contáctanos si tienes alguna duda sobre la plataforma, cómo unirte o cualquier otra consulta.</p>
-      <button class="px-8 py-3 rounded-lg bg-purple-700 text-white font-semibold shadow hover:bg-purple-800 transition">
+      <button on:click={() => goto('/contact')} class="px-8 py-3 rounded-lg bg-purple-700 text-white font-semibold shadow hover:bg-purple-800 transition">
         Contactar ahora
       </button>
     </div>
@@ -94,7 +94,7 @@ function irARegistro(rol: 'escalador' | 'entrenador') {
       <span class="text-gray-500">|</span>
       <a href="#" class="hover:underline">Términos</a>
       <span class="text-gray-500">|</span>
-      <a href="#" class="hover:underline">Contacto</a>
+      <a href="/contact" class="hover:underline">Contacto</a>
     </nav>
     <div class="text-xs text-gray-400 text-center">© 2025 Tuentreno. Todos los derechos reservados.</div>
   </div>

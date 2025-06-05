@@ -168,4 +168,4 @@ export const actions: Actions = {
 			throw error(500, 'Error al actualizar la tarifa mensual');
 		}
 	}
-};
+}; 

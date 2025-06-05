@@ -33,7 +33,19 @@ export const load: PageServerLoad = async (event) => {
 			.orderBy(desc(clientTrainer.startDate));
 	}
 
-	return { user: userData, clients };
+	// Fetch full user info for sidebar avatar
+	const [fullUser] = await db.select().from(user).where(eq(user.id, userData.id));
+
+	return { 
+		user: {
+			...userData,
+			firstName: fullUser?.firstName,
+			lastName: fullUser?.lastName,
+			email: fullUser?.email,
+			profilePicture: fullUser?.profilePicture
+		},
+		clients 
+	};
 };
 
 export const actions: Actions = {

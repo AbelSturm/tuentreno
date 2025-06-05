@@ -4,7 +4,6 @@
 </svelte:head>
 
 <script lang="ts">
-import DashboardLayout from '$lib/DashboardLayout.svelte';
 import { enhance } from '$app/forms';
 
 let { data } = $props();
@@ -46,7 +45,6 @@ function getInitials(firstName: string, lastName: string) {
 }
 </script>
 
-<DashboardLayout userRole="entrenador" pageTitle="Clientes">
   <div class="space-y-6">
     <!-- Header -->
     <div class="flex justify-between items-center">
@@ -55,7 +53,7 @@ function getInitials(firstName: string, lastName: string) {
         <p class="mt-2 text-gray-600">Gestiona y supervisa a tus escaladores</p>
       </div>
       <a
-        href="/dashboard/clientes/nuevo"
+        href="/dashboard/entrenador/clientes/nuevo"
         class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
       >
         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -218,7 +216,7 @@ function getInitials(firstName: string, lastName: string) {
                   </div>
                   <div class="flex-shrink-0">
                     <a
-                      href="/dashboard/clientes/{client.clientId}"
+                      href="/dashboard/entrenador/clientes/{client.clientId}"
                       class="inline-flex items-center px-3 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50"
                     >
                       Ver Detalles
@@ -240,4 +238,4 @@ function getInitials(firstName: string, lastName: string) {
       {/if}
     </div>
   </div>
-</DashboardLayout>
+ 

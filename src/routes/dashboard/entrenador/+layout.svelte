@@ -3,8 +3,13 @@ import { page } from '$app/stores';
 
 let sidebarOpen = false;
 
+// Mark as active if the current path matches or is a subpath (for Clientes)
 function isActive(href: string): boolean {
-  return $page.url.pathname === href;
+  const path = $page.url.pathname;
+  if (href === '/dashboard/entrenador/clientes') {
+    return path === href || path.startsWith(href + '/');
+  }
+  return path === href;
 }
 
 function getNavItemClasses(href: string): string {

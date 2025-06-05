@@ -32,103 +32,106 @@
   let { form } = $page.data;
 </script>
 
-<!-- Perfil de usuario -->
-<section class="profile-card">
-  <h2>Perfil de usuario</h2>
-  <form method="post" action="?/actualizarPerfil">
-    <div class="form-group">
-      <label>Nombre:
-        <input type="text" name="firstName" bind:value={firstName} required />
-      </label>
-      <label>Apellido:
-        <input type="text" name="lastName" bind:value={lastName} required />
-      </label>
-    </div>
-    <div class="form-group">
-      <label>Email:
-        <input type="email" name="email" bind:value={email} required />
-      </label>
-      <label>Teléfono:
-        <input type="tel" name="phone" bind:value={phone} />
-      </label>
-    </div>
-    <div class="form-group">
-      <label>Fecha de nacimiento:
-        <input type="date" name="birthDate" bind:value={birthDate} />
-      </label>
-      <label>Experiencia:
-        <select name="experience" bind:value={experience}>
-          <option value="">Selecciona</option>
-          <option value="principiante">Principiante</option>
-          <option value="intermedio">Intermedio</option>
-          <option value="avanzado">Avanzado</option>
-          <option value="experto">Experto</option>
-        </select>
-      </label>
-    </div>
-    <div class="form-group">
-      <label>Grado máximo:
-        <input type="text" name="maxGrade" bind:value={maxGrade} />
-      </label>
-      <label>Foto de perfil:
-        <input type="text" name="profilePicture" bind:value={profilePicture} placeholder="URL de la imagen" />
-      </label>
-    </div>
-    <button type="submit" class="btn-primary">Actualizar perfil</button>
-    {#if form?.message && form?.success}
-      <p class="success-message">{form.message}</p>
-    {:else if form?.message}
-      <p class="error-message">{form.message}</p>
-    {/if}
-  </form>
-</section>
+<!-- Main container for consistent spacing with clients page -->
+<div class="space-y-6 px-4 py-8 sm:px-6 lg:px-8">
+  <!-- Perfil de usuario -->
+  <section class="profile-card">
+    <h2>Perfil de usuario</h2>
+    <form method="post" action="?/actualizarPerfil">
+      <div class="form-group">
+        <label>Nombre:
+          <input type="text" name="firstName" bind:value={firstName} required />
+        </label>
+        <label>Apellido:
+          <input type="text" name="lastName" bind:value={lastName} required />
+        </label>
+      </div>
+      <div class="form-group">
+        <label>Email:
+          <input type="email" name="email" bind:value={email} required />
+        </label>
+        <label>Teléfono:
+          <input type="tel" name="phone" bind:value={phone} />
+        </label>
+      </div>
+      <div class="form-group">
+        <label>Fecha de nacimiento:
+          <input type="date" name="birthDate" bind:value={birthDate} />
+        </label>
+        <label>Experiencia:
+          <select name="experience" bind:value={experience}>
+            <option value="">Selecciona</option>
+            <option value="principiante">Principiante</option>
+            <option value="intermedio">Intermedio</option>
+            <option value="avanzado">Avanzado</option>
+            <option value="experto">Experto</option>
+          </select>
+        </label>
+      </div>
+      <div class="form-group">
+        <label>Grado máximo:
+          <input type="text" name="maxGrade" bind:value={maxGrade} />
+        </label>
+        <label>Foto de perfil:
+          <input type="text" name="profilePicture" bind:value={profilePicture} placeholder="URL de la imagen" />
+        </label>
+      </div>
+      <button type="submit" class="btn-primary">Actualizar perfil</button>
+      {#if form?.message && form?.success}
+        <p class="success-message">{form.message}</p>
+      {:else if form?.message}
+        <p class="error-message">{form.message}</p>
+      {/if}
+    </form>
+  </section>
 
-<hr />
+  <hr />
 
-<!-- Cambio de contraseña -->
-<section class="profile-card">
-  <h2>Cambiar contraseña</h2>
-  <form method="post" action="?/cambiarPassword">
-    <div class="form-group">
-      <label>Contraseña actual:
-        <input type="password" name="currentPassword" bind:value={currentPassword} required />
-      </label>
-    </div>
-    <div class="form-group">
-      <label>Nueva contraseña:
-        <input type="password" name="newPassword" bind:value={newPassword} required />
-      </label>
-      <label>Confirmar nueva contraseña:
-        <input type="password" name="confirmPassword" bind:value={confirmPassword} required />
-      </label>
-    </div>
-    <button type="submit" class="btn-primary">Actualizar contraseña</button>
-    {#if form?.message && form?.success}
-      <p class="success-message">{form.message}</p>
-    {:else if form?.message}
-      <p class="error-message">{form.message}</p>
-    {/if}
-  </form>
-</section>
+  <!-- Cambio de contraseña -->
+  <section class="profile-card">
+    <h2>Cambiar contraseña</h2>
+    <form method="post" action="?/cambiarPassword">
+      <div class="form-group">
+        <label>Contraseña actual:
+          <input type="password" name="currentPassword" bind:value={currentPassword} required />
+        </label>
+      </div>
+      <div class="form-group">
+        <label>Nueva contraseña:
+          <input type="password" name="newPassword" bind:value={newPassword} required />
+        </label>
+        <label>Confirmar nueva contraseña:
+          <input type="password" name="confirmPassword" bind:value={confirmPassword} required />
+        </label>
+      </div>
+      <button type="submit" class="btn-primary">Actualizar contraseña</button>
+      {#if form?.message && form?.success}
+        <p class="success-message">{form.message}</p>
+      {:else if form?.message}
+        <p class="error-message">{form.message}</p>
+      {/if}
+    </form>
+  </section>
 
-<hr />
+  <hr />
 
-<!-- Eliminar cuenta -->
-<section class="profile-card danger-card">
-  <h2>Eliminar cuenta</h2>
-  <form method="post" action="?/eliminarCuenta">
-    <label class="checkbox-label">
-      <input type="checkbox" name="confirmDelete" bind:checked={confirmDelete} />
-      Confirmo que deseo eliminar mi cuenta permanentemente
-    </label>
-    <button type="submit" class="btn-danger">Eliminar cuenta</button>
-    {#if form?.message && form?.success}
-      <p class="success-message">{form.message}</p>
-    {:else if form?.message}
-      <p class="error-message">{form.message}</p>
-    {/if}
-  </form>
-</section>
+  <!-- Eliminar cuenta -->
+  <section class="profile-card danger-card">
+    <h2>Eliminar cuenta</h2>
+    <form method="post" action="?/eliminarCuenta">
+      <label class="checkbox-label">
+        <input type="checkbox" name="confirmDelete" bind:checked={confirmDelete} />
+        Confirmo que deseo eliminar mi cuenta permanentemente
+      </label>
+      <button type="submit" class="btn-danger">Eliminar cuenta</button>
+      {#if form?.message && form?.success}
+        <p class="success-message">{form.message}</p>
+      {:else if form?.message}
+        <p class="error-message">{form.message}</p>
+      {/if}
+    </form>
+  </section>
+</div>
 
 <style>
   section.profile-card {
@@ -137,9 +140,9 @@
     box-shadow: 0 2px 12px 0 rgba(80, 0, 120, 0.07);
     padding: 2rem 2rem 1.5rem 2rem;
     margin-bottom: 2.5rem;
-    max-width: 500px;
-    margin-left: auto;
-    margin-right: auto;
+    /* max-width: 500px; */
+    /* margin-left: auto; */
+    /* margin-right: auto; */
     border: 1px solid #f3e8ff;
   }
   section.profile-card h2 {

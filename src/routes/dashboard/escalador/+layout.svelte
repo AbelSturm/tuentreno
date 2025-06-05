@@ -28,6 +28,20 @@ let { user } = $page.data;
 </script>
 
 <div class="h-screen flex bg-gray-50 overflow-hidden">
+  <!-- Mobile header with hamburger menu -->
+  <header class="mobile-header fixed top-0 left-0 right-0 z-50 bg-white shadow-md flex items-center justify-between h-14 px-4 border-b border-purple-100 lg:hidden">
+    <span class="app-brand font-extrabold text-lg text-purple-800 tracking-tight select-none">Tuentreno</span>
+    <button
+      class="p-2 rounded-md text-purple-700 border border-purple-100 bg-white shadow"
+      onclick={() => sidebarOpen = true}
+      aria-label="Open sidebar menu"
+      type="button"
+    >
+      <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+  </header>
   {#if sidebarOpen}
     <div class="fixed inset-0 z-40 lg:hidden" role="dialog" aria-modal="true">
       <div 
@@ -42,7 +56,7 @@ let { user } = $page.data;
   {/if}
 
   <!-- Sidebar -->
-  <div class="fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-lg transform {sidebarOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0 flex flex-col">
+  <div class="sidebar-drawer fixed inset-y-0 right-0 left-auto z-50 w-64 bg-white shadow-lg transform {sidebarOpen ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0 flex flex-col">
     <!-- Logo -->
     <div class="flex items-center justify-between h-16 px-6 border-b border-gray-200 flex-shrink-0">
       <a href="/" class="flex items-center gap-2 select-none">
@@ -79,47 +93,47 @@ let { user } = $page.data;
     </div>
     <!-- Navigation -->
     <nav class="flex-1 px-4 py-4 space-y-2 overflow-y-auto" aria-label="Navegación principal">
-      <a href="/dashboard/escalador" class={getNavItemClasses('/dashboard/escalador')} aria-current={isActive('/dashboard/escalador') ? 'page' : undefined}>
+      <a href="/dashboard/escalador" class={getNavItemClasses('/dashboard/escalador')} aria-current={isActive('/dashboard/escalador') ? 'page' : undefined} onclick={() => { if (window.innerWidth < 1024) sidebarOpen = false; }}>
         <svg class="w-5 h-5 mr-3 {isActive('/dashboard/escalador') ? 'text-purple-600' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"></path>
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5a2 2 0 012-2h2a2 2 0 012 2v2H8V5z"></path>
         </svg>
         Dashboard
       </a>
-      <a href="/dashboard/escalador/mi-entrenamiento" class={getNavItemClasses('/dashboard/escalador/mi-entrenamiento')} aria-current={isActive('/dashboard/escalador/mi-entrenamiento') ? 'page' : undefined}>
+      <a href="/dashboard/escalador/mi-entrenamiento" class={getNavItemClasses('/dashboard/escalador/mi-entrenamiento')} aria-current={isActive('/dashboard/escalador/mi-entrenamiento') ? 'page' : undefined} onclick={() => { if (window.innerWidth < 1024) sidebarOpen = false; }}>
         <svg class="w-5 h-5 mr-3 {isActive('/dashboard/escalador/mi-entrenamiento') ? 'text-purple-600' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
         </svg>
         Mi Entrenamiento
       </a>
-      <a href="/dashboard/escalador/progreso" class={getNavItemClasses('/dashboard/escalador/progreso')} aria-current={isActive('/dashboard/escalador/progreso') ? 'page' : undefined}>
+      <a href="/dashboard/escalador/progreso" class={getNavItemClasses('/dashboard/escalador/progreso')} aria-current={isActive('/dashboard/escalador/progreso') ? 'page' : undefined} onclick={() => { if (window.innerWidth < 1024) sidebarOpen = false; }}>
         <svg class="w-5 h-5 mr-3 {isActive('/dashboard/escalador/progreso') ? 'text-purple-600' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
         </svg>
         Progreso
       </a>
-      <a href="/dashboard/escalador/cuestionarios" class={getNavItemClasses('/dashboard/escalador/cuestionarios')} aria-current={isActive('/dashboard/escalador/cuestionarios') ? 'page' : undefined}>
+      <a href="/dashboard/escalador/cuestionarios" class={getNavItemClasses('/dashboard/escalador/cuestionarios')} aria-current={isActive('/dashboard/escalador/cuestionarios') ? 'page' : undefined} onclick={() => { if (window.innerWidth < 1024) sidebarOpen = false; }}>
         <svg class="w-5 h-5 mr-3 {isActive('/dashboard/escalador/cuestionarios') ? 'text-purple-600' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
         </svg>
         Cuestionarios
       </a>
-      <a href="/dashboard/escalador/rutas" class={getNavItemClasses('/dashboard/escalador/rutas')} aria-current={isActive('/dashboard/escalador/rutas') ? 'page' : undefined}>
+      <a href="/dashboard/escalador/rutas" class={getNavItemClasses('/dashboard/escalador/rutas')} aria-current={isActive('/dashboard/escalador/rutas') ? 'page' : undefined} onclick={() => { if (window.innerWidth < 1024) sidebarOpen = false; }}>
         <svg class="w-5 h-5 mr-3 {isActive('/dashboard/escalador/rutas') ? 'text-purple-600' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
         </svg>
         Rutas
       </a>
-      <a href="/dashboard/profile" class={getNavItemClasses('/dashboard/profile')} aria-current={isActive('/dashboard/profile') ? 'page' : undefined}>
-        <svg class="w-5 h-5 mr-3 {isActive('/dashboard/profile') ? 'text-purple-600' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+      <a href="/dashboard/escalador/profile" class={getNavItemClasses('/dashboard/escalador/profile')} aria-current={isActive('/dashboard/escalador/profile') ? 'page' : undefined} onclick={() => { if (window.innerWidth < 1024) sidebarOpen = false; }}>
+        <svg class="w-5 h-5 mr-3 {isActive('/dashboard/escalador/profile') ? 'text-purple-600' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 12c2.7 0 4.5-1.8 4.5-4.5S14.7 3 12 3 7.5 4.8 7.5 7.5 9.3 12 12 12zm0 2c-3 0-9 1.5-9 4.5V21h18v-2.5c0-3-6-4.5-9-4.5z" />
         </svg>
         Perfil
       </a>
     </nav>
     <!-- Logout button at the bottom -->
-    <form method="POST" action="?/logout" class="mt-4 px-4 pb-6 flex-shrink-0">
+    <form method="POST" action="/logout" class="mt-4 px-4 pb-6 flex-shrink-0">
       <button type="submit" class="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-lg font-semibold text-white bg-red-500 hover:bg-red-600 transition-colors text-sm shadow-sm" onclick={() => { if (window.innerWidth < 1024) sidebarOpen = false; }}>
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H7a2 2 0 01-2-2V7a2 2 0 012-2h4a2 2 0 012 2v1" />
@@ -128,7 +142,8 @@ let { user } = $page.data;
       </button>
     </form>
   </div>
-  <main class="flex-1 p-8 overflow-y-auto">
+  <main class="flex-1 p-8 overflow-y-auto lg:mt-0 mt-14">
+    <div class="h-6 lg:hidden"></div> <!-- Extra space below header for mobile -->
     <slot />
   </main>
 </div>
@@ -146,5 +161,40 @@ let { user } = $page.data;
   .nav-link:hover, .nav-link.active {
     background: #f3e8ff;
     color: #4c1d95;
+  }
+  .app-brand {
+    letter-spacing: -0.01em;
+    font-size: 1.2rem;
+    line-height: 1.2;
+  }
+  @media (max-width: 1023px) {
+    .mobile-header {
+      height: 3.5rem;
+      min-height: 3.5rem;
+      max-height: 3.5rem;
+    }
+    main {
+      padding-top: 0 !important;
+      margin-top: 3.5rem !important;
+    }
+    .sidebar-drawer {
+      width: 100vw !important;
+      height: 100vh !important;
+      right: 0;
+      left: auto;
+      top: 0;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+      transform: translateX(100%);
+    }
+    .sidebar-drawer.translate-x-0 {
+      transform: translateX(0) !important;
+    }
+    .sidebar-drawer.translate-x-full {
+      transform: translateX(100%) !important;
+    }
+    .h-6 {
+      height: 1.5rem;
+    }
   }
 </style> 

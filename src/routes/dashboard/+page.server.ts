@@ -8,31 +8,6 @@ import { eq, desc } from 'drizzle-orm';
 export const load: PageServerLoad = async (event) => {
 	const userData = requireLogin(event);
 
-	let clients: any[] = [];
-	if (userData.role === 'entrenador') {
-		clients = await db
-			.select({
-				id: clientTrainer.id,
-				clientId: clientTrainer.clientId,
-				status: clientTrainer.status,
-				startDate: clientTrainer.startDate,
-				endDate: clientTrainer.endDate,
-				monthlyFee: clientTrainer.monthlyFee,
-				notes: clientTrainer.notes,
-				firstName: user.firstName,
-				lastName: user.lastName,
-				email: user.email,
-				phone: user.phone,
-				experience: user.experience,
-				maxGrade: user.maxGrade,
-				profilePicture: user.profilePicture
-			})
-			.from(clientTrainer)
-			.innerJoin(user, eq(clientTrainer.clientId, user.id))
-			.where(eq(clientTrainer.trainerId, userData.id))
-			.orderBy(desc(clientTrainer.startDate));
-	}
-
 	// Fetch full user info for sidebar avatar
 	const [fullUser] = await db.select().from(user).where(eq(user.id, userData.id));
 
@@ -43,8 +18,7 @@ export const load: PageServerLoad = async (event) => {
 			lastName: fullUser?.lastName,
 			email: fullUser?.email,
 			profilePicture: fullUser?.profilePicture
-		},
-		clients 
+		}
 	};
 };
 
